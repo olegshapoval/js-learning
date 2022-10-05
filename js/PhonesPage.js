@@ -2,6 +2,7 @@ import PhonesCatalog from './components/PhonesCatalog.js';
 import Filter from './components/Filter.js';
 import PhoneViewer from './components/PhoneViewer.js';
 import ShoppingCurt from './components/ShoppingCurt.js';
+import PhonesService from './PhonesService.js';
 
 export default class PhonesPage {
     constructor({ element }) {
@@ -10,19 +11,20 @@ export default class PhonesPage {
         this._render();
 
         new PhonesCatalog({
-            element: this._element.querySelector('PhonesCatalog'),
+            element: this._element.querySelector('[data-component="PhonesCatalog"]'),
+            phones: PhonesService.getAll()
         });
 
         new PhoneViewer({
-            element: this._element.querySelector('PhoneViewer'),
+            element: this._element.querySelector('[data-component="PhoneViewer"]'),
         });
 
         new Filter({
-            element: this._element.querySelector('Filter'),
+            element: this._element.querySelector('[data-component="Filter"]'),
         });
 
         new ShoppingCurt({
-            element: this._element.querySelector('ShoppingCurt'),
+            element: this._element.querySelector('[data-component="ShoppingCurt"]'),
         });
     }
 
@@ -33,21 +35,18 @@ export default class PhonesPage {
             <!--Sidebar-->
             <div class="col-md-2">
                 <section>
-                <Filter />
+                    <div data-component="Filter"></div>
                 </section>
 
                 <section>
-                <ShoppingCurt />
+                    <div data-component="ShoppingCurt"></div>
                 </section>
             </div>
 
             <!--Main content-->
             <div class="col-md-10">
-                <section>
-                <PhonesCatalog />
-                </section>
-
-                <PhoneViewer />
+                <div data-component="PhonesCatalog"></div>
+                <div data-component="PhoneViewer" hidden></div>
             </div>
         </div>
         `;
