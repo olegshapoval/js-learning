@@ -1,26 +1,35 @@
 export default class PhonesCatalog {
-    constructor({ element, phones }) {
+    constructor({ element, phones, onPhoneSelected }) {
         this._element = element;
 
-        this._probs = {
-          phones: phones
+        this._props = {
+          phones: phones,
+          onPhoneSelected: onPhoneSelected,
         };
 
         this._render();
+        this._initEventListeners();
+        
+    }
 
-        this._element.addEventListner('click', (event) => {
-          const detailsLink = event.target.closest('[data-element="DatailsLink"]');
+    hide() {
+      this._element.hidden = true;    
+    }
 
-          if (!detailsLink) return;
-          
+    _initEventListeners () {
+      this._element.addEventListener('click', (event) => {
+        const detailsLink = event.target.closest('[data-element="DatailsLink"]');
 
-        })
+        if (!detailsLink) return;
+        
+        this._props.onPhoneSelected(detailsLink.dataset.phoneId);
+      })
     }
 
     _render() {
         this._element.innerHTML = `
         <ul class="phones">
-        ${this._probs.phones.map(phone => `
+        ${this._props.phones.map(phone => `
         <li class="thumbnail">
           <a 
             data-element="DatailsLink" 

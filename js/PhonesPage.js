@@ -8,24 +8,50 @@ export default class PhonesPage {
     constructor({ element }) {
         this._element = element;
 
+        this._state = {
+            phones: PhonesService.getAll(),
+            selectedPhone: null,
+        };
+
         this._render();
 
-        new PhonesCatalog({
-            element: this._element.querySelector('[data-component="PhonesCatalog"]'),
-            phones: PhonesService.getAll()
-        });
+        this._initCatalog();       
+        this._initFilter();
+        this._initCart();
+        this._initViewer();
+   
+    }
 
-        new PhoneViewer({
+    _initCatalog() {
+        this._catalog = new PhonesCatalog({
+            element: this._element.querySelector('[data-component="PhonesCatalog"]'),
+            phones: this._state.phones,
+
+            onPhoneSelected: (phoneId) => {
+                const selectedPhone = PhonesService.getById(phoneId);
+
+                this._catalog.hide();
+                this._viewer.show(selectedPhone);
+            }
+        });
+    }
+
+    _initViewer() {
+        this._viewer =new PhoneViewer({
             element: this._element.querySelector('[data-component="PhoneViewer"]'),
         });
+    }
 
-        new Filter({
-            element: this._element.querySelector('[data-component="Filter"]'),
-        });
-
-        new ShoppingCurt({
+    _initCart() {
+        this._cart =new ShoppingCurt({
             element: this._element.querySelector('[data-component="ShoppingCurt"]'),
-        });
+        });       
+    }
+
+    _initFilter() {
+        this._filter =new Filter({
+            element: this._element.querySelector('[data-component="Filter"]'),
+        });    
     }
 
     _render() {
@@ -45,8 +71,8 @@ export default class PhonesPage {
 
             <!--Main content-->
             <div class="col-md-10">
-                <div data-component="PhonesCatalog"></div>
-                <div data-component="PhoneViewer" hidden></div>
+                <div data-component="PhoneViewer" hidden ></div>
+                <div data-component="PhonesCatalog"></div>              
             </div>
         </div>
         `;
