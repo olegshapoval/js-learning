@@ -11,17 +11,17 @@ export default class ShoppingCurt extends Component{
         this._render();
     }
 
-    _setState (partial) {
-        this._state = {
-            ...this._state,
-            ...partial,
-        };
+    // _setState (partial) {
+    //     this._state = {
+    //         ...this._state,
+    //         ...partial,
+    //     };
         
-        this._updateView();
-    }
+    //     this._updateView();
+    // }
 
     add(phoneId) {
-        this._setState({
+        super._setState({
             items: [...this._state.items,phoneId],
         });    
     }

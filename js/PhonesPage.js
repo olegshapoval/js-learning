@@ -36,7 +36,9 @@ export default class PhonesPage extends Component {
                 const selectedPhone = PhonesService.getById(phoneId);
 
                 this._catalog.hide();
-                this._viewer.show(selectedPhone);
+                this._viewer._setProps({ phone: selectedPhone})
+                this._viewer.show();
+
             },
             onAdd: (phoneId) => {
                 this._cart.add(phoneId);        
@@ -51,6 +53,9 @@ export default class PhonesPage extends Component {
             onBack:() => {
                 this._catalog.show();
                 this._viewer.hide();
+            },
+            onAdd: (phoneId) => {
+                this._cart.add(phoneId);        
             },
         });
     }

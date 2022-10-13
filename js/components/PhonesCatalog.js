@@ -16,21 +16,13 @@ export default class PhonesCatalog extends Component {
     }
 
     _initEventListeners () {
-      this._element.addEventListener('click', (event) => {
-        const detailsLink = event.target.closest('[data-element="datails-link"]');
-
-        if (!detailsLink) return;
-        
-        this._props.onPhoneSelected(detailsLink.dataset.phoneId);
+      super.on('click', 'add-button', ({delegateTarget: addButton}) => {
+        this._props.onAdd(addButton.dataset.phoneId);
       });
 
-      this._element.addEventListener('click', (event) => {
-        const addButton = event.target.closest('[data-element="add-button"]');
-
-        if (!addButton) return;
-        
-        this._props.onAdd(addButton.dataset.phoneId);
-      })
+      super.on('click', 'datails-link', ({delegateTarget: detailsLink}) => {
+        this._props.onPhoneSelected(detailsLink.dataset.phoneId);
+      });
     }
 
     _render() {
