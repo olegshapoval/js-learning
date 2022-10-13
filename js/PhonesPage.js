@@ -20,6 +20,10 @@ export default class PhonesPage extends Component {
         this._initFilter();
         this._initCart();
         this._initViewer();
+
+        // this._cart.add('1');
+        // this._cart.add('1');
+        // this._cart.add('1');
    
     }
 
@@ -33,12 +37,15 @@ export default class PhonesPage extends Component {
 
                 this._catalog.hide();
                 this._viewer.show(selectedPhone);
-            }
+            },
+            onAdd: (phoneId) => {
+                this._cart.add(phoneId);        
+            },
         });
     }
 
     _initViewer() {
-        this._viewer =new PhoneViewer({
+        this._viewer = new PhoneViewer({
             element: this._element.querySelector('[data-component="PhoneViewer"]'),
             
             onBack:() => {
@@ -49,7 +56,7 @@ export default class PhonesPage extends Component {
     }
 
     _initCart() {
-        this._cart =new ShoppingCurt({
+        this._cart = new ShoppingCurt({
             element: this._element.querySelector('[data-component="ShoppingCurt"]'),
         });       
     }
