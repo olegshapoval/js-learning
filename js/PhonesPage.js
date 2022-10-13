@@ -3,10 +3,11 @@ import Filter from './components/Filter.js';
 import PhoneViewer from './components/PhoneViewer.js';
 import ShoppingCurt from './components/ShoppingCurt.js';
 import PhonesService from './PhonesService.js';
+import Component from "./component.js";
 
-export default class PhonesPage {
+export default class PhonesPage extends Component {
     constructor({ element }) {
-        this._element = element;
+        super({ element });
 
         this._state = {
             phones: PhonesService.getAll(),
@@ -39,6 +40,11 @@ export default class PhonesPage {
     _initViewer() {
         this._viewer =new PhoneViewer({
             element: this._element.querySelector('[data-component="PhoneViewer"]'),
+            
+            onBack:() => {
+                this._catalog.show();
+                this._viewer.hide();
+            },
         });
     }
 

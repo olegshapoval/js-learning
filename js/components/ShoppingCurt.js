@@ -1,6 +1,8 @@
-export default class ShoppingCurt {
+import Component from "../component.js";
+
+export default class ShoppingCurt extends Component{
     constructor({ element }) {
-        this._element = element;
+        super({ element });
 
         this._render();
     }
